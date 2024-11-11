@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.class>cn.yzh.module.excel.App</main.class>
-        <java.version>22</java.version>
+        <java.version>21</java.version>
     </properties>
 
     <dependencies>
@@ -122,9 +122,9 @@
                 <configuration>
                     <target>${java.version}</target>
                     <source>${java.version}</source>
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                    <useIncrementalCompilation>true</useIncrementalCompilation>
                     <compilerArgs>
-                        <compilerArg>--enable-preview</compilerArg>
+<!--                        <compilerArg>&#45;&#45;enable-preview</compilerArg>-->
                     </compilerArgs>
 
                 </configuration>

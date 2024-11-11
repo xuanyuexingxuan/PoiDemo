@@ -8,39 +8,35 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-
-
 import java.nio.file.Path;
 import java.util.Iterator;
 
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
-    public static void main( String[] args ) throws Exception {
+public class App {
+    public static void main(String[] args) throws Exception {
 
         readLagerExcel();
 
 
     }
+
     /**
+     * //    java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image/,experimental-class-define-support --enable-preview -jar
      * 大批量数据读取 十万级以上
      * 思路：采用分段缓存加载数据，防止出现OOM的情况
-     *
      *
      * @throws Exception
      */
     public static void readLagerExcel() throws Exception {
         //获取当前所在目录
         System.out.println("开始读取excel");
+        System.out.println(Path.of("").toFile().getAbsoluteFile().getPath());
         InputStream inputStream = new ByteArrayInputStream(Files.readAllBytes(Path.of("test.xlsx")));
 
         long start = System.currentTimeMillis();
@@ -50,22 +46,22 @@ public class App
                 .open(inputStream)) { //打开资源，可以是InputStream或者是File，注意：只能打开.xlsx格式的文件
 
             Iterator<Sheet> sheetIterator = workbook.sheetIterator();
-            while (sheetIterator.hasNext()){
+            while (sheetIterator.hasNext()) {
                 Sheet sheet = sheetIterator.next();
-                System.out.println("开始读取excel，耗时：{}毫秒，"+ (System.currentTimeMillis() - start));
+                System.out.println("开始读取excel，耗时：{}毫秒，" + (System.currentTimeMillis() - start));
                 //遍历所有的行
                 for (Row row : sheet) {
                     System.out.println("开始遍历第" + row.getRowNum() + "行数据：");
                 }
                 //总数
                 System.out.println("读取结束行数：" + sheet.getLastRowNum());
-                System.out.println("读取excel完毕，耗时：{}毫秒，"+ (System.currentTimeMillis() - start));
-            };
+                System.out.println("读取excel完毕，耗时：{}毫秒，" + (System.currentTimeMillis() - start));
+            }
+            ;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 //    public static void readbigExcel(String FileName){
 //
